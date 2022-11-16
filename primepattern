@@ -1,0 +1,112 @@
+#This program visualizes the primes numbers from 0 to 3000.
+
+import turtle
+import random
+import sympy
+
+turtle.colormode(255)
+
+
+def randcolor():
+    r = random.randint(1, 254)
+    b = random.randint(1, 254)
+    g = random.randint(1, 254)
+    random_colour = (r, b, g)
+    return random_colour
+
+
+def define(defy, colour):
+    defy.pencolor(colour)
+    defy.penup()
+    # defy.forward(5)
+    defy.pendown()
+    defy.write(dot.numb, font=("Calibre", 10, "bold"))
+
+
+def final_touch():
+    treat = turtle.Turtle(shape="turtle")
+    treat.color("gold")
+    treat.penup()
+    treat.goto(x=530, y=290)
+    treat.write(f"+{number}", font=("Comic Sans MS", 25, "bold"))
+
+
+def axis_of_turtle():
+    defi = turtle.Turtle()
+    defi.penup()
+    defi.pencolor("white")
+    defi.pensize(10)
+    for i in range(1, 31):
+        defi.goto(x=-627, y=-327 + (i * 15))
+        defi.pendown()
+        defi.write(i, font=("Consolas Bold italic", 10, "bold"))
+        defi.penup()
+    defi.hideturtle()
+
+
+def location(turtle_num, iteration):
+    global number
+    return -320 + ((turtle_num + number * iteration) * 15)
+
+
+s = turtle.Screen()
+s.bgcolor("black")
+s.setup(width=1280, height=360)
+
+all_turtles = []
+number = int(s.textinput(title="Prime design", prompt="enter the no. of turtles"))
+alist = list(range(1, number + 1))
+a = list(sympy.primerange(0, 3000))
+
+last_element = number * 78
+
+axis_of_turtle()
+for i in alist:
+    q = turtle.Turtle(shape="triangle")
+    q.color(randcolor())
+    q.penup()
+    q.speed(0)  # here
+    # q.write(alist[i - 1], font=("Consolas Bold italic", 10, "bold"))  # here
+    all_turtles.append(q)
+
+
+def dot(turtle_init_value, turtle_name, dot_color, dot_range):
+    qq = turtle_name
+    dot.numb = turtle_init_value  # dot.numb is final value
+    dot.range = dot_range
+    print(turtle_name.pos())
+    for _ in range(0, dot.range + 1):
+        qq.forward(15)
+        qq.pendown()
+        if dot.numb in a:
+            qq.dot(10, dot_color)
+            # define(qq, "white")
+        else:
+            # define(qq, 'DarkOliveGreen2')
+            pass
+        qq.penup()
+
+        global number
+        dot.numb += number
+
+    qq.forward(15)
+
+
+
+for a_turtle in all_turtles:
+    current_element = int(alist[all_turtles.index(a_turtle)])
+    current_turtle = int(alist[all_turtles.index(a_turtle)])
+
+    a_turtle.goto(x=-622, y=location(current_turtle, 0))
+    dot(current_element, a_turtle, "turquoise", 77)
+
+    current_element += last_element
+    a_turtle.goto(x=-622, y=location(current_turtle, 1))
+    dot(current_element, a_turtle, "darkslategray", 77)
+
+    current_element += last_element
+    a_turtle.goto(x=-622, y=location(current_turtle, 2))
+    dot(current_element, a_turtle, "turquoise", 77)
+final_touch()
+
+s.exitonclick()
